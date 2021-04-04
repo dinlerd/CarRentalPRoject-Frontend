@@ -6,6 +6,7 @@
     <thead class="tables-success">
         <tr>
             <th>Id</th>
+            <th>Car Id</th>
             <th>Brand</th>
             <th>Color</th>
             <th>Car Description</th>
@@ -17,6 +18,7 @@
     </thead>
     <tr *ngFor="let rental of rentals">
         <td>{{rental.id}}</td>
+        <td>{{rental.carId}}</td>
         <td>{{rental.brandName}}</td>
         <td>{{rental.colorName}}</td>
         <td>{{rental.carName}}</td>
@@ -69,12 +71,12 @@
         <div class="card">
           <div class="card-header"><h5 class="title">Add Car</h5></div>
           <div class="card-body">
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="customerSelect" class="form-label">Select Customer:</label>
             <select class="form-select" [(ngModel)]="customerId" id="customerSelect">
               <option [value]="customer.id" *ngFor="let customer of customers">{{ customer.id }} - {{ customer.companyName }}</option>
             </select>
-            </div>
+            </div> -->
               <div>
               <form class="list-group-item active">
                 <label>Start Date</label><label style="margin-left: 150px;">End Date</label>
@@ -90,11 +92,9 @@
           <div class="card-footer">
           <section style="float: left">
            <button [disabled]="!(endDate && startDate && rentPrice>0)" (click)="addRentalCheck(rentalToAdd)" type="button" class="btn btn-primary">Rent</button>
-          <!-- *ngIf="endDate && startDate && rentPrice>0"   -->
-          <!-- <button (click)="addRentalCheck(rentalToAdd)" type="button" class="btn btn-success" style="position:absolute; bottom:20px; right:20px;">Rent</button> -->
         </section>
-        <section *ngIf="car" style="float: right">
-          <button [disabled]="!(carRented==true)" routerLink="/rental/payment/{{car.carId}}" type="button" class="btn btn-primary">Payment</button>
+        <section *ngIf="car && rentalIdLoaded==true" style="float: right">
+          <button [disabled]="(carRented==false)" routerLink="/newpayment/{{rentalInfos.id}}/{{rentPrice}}/{{rentalInfos.customerId}}" type="button" class="btn btn-primary">Payment</button> <!--routerLink="/rental/payment/{{car.carId}}"-->
         </section>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { Rental } from '../models/rental';
 import { ResponseModel } from '../models/responseModel';
 import { environment } from 'src/environments/environment';
 import { RentalToAdd } from '../models/rentalToAdd';
+import { ItemResponseModel } from '../models/itemResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,9 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<Rental>>(newPath);
   }
 
-  addRental(rental:RentalToAdd){
+  addRental(rental:RentalToAdd):Observable<ResponseModel>{
     let newPath = environment.apiUrl + "rentals/add"
-    this.httpClient.post(newPath,rental).subscribe()
+    return this.httpClient.post<ResponseModel>(newPath,rental);
   }
 
   getRentalsByCarId(carId:number):Observable<ListResponseModel<Rental>>{
@@ -34,6 +35,17 @@ export class RentalService {
   getRentalDetailsByCarId(carId:number):Observable<ListResponseModel<Rental>>{
     let newPath = environment.apiUrl + "rentals/getrentaldetailsbycarid?carid=" + carId
     return this.httpClient.get<ListResponseModel<Rental>>(newPath);
+  }
+
+  getRental(rentalId:Number):Observable<ItemResponseModel<RentalToAdd>> {
+    return this.httpClient.get<ItemResponseModel<RentalToAdd>>(environment.apiUrl + "rentals/getbyid?rentalId=" + rentalId);
+  }
+
+  getIdByRentalInfos(carId:number, customerId:number, rentDate:Date, returnDate:Date):Observable<ItemResponseModel<RentalToAdd>> {
+    return this.httpClient.get<ItemResponseModel<RentalToAdd>>(environment.apiUrl + "rentals/getidbyrentalinfos?carId=" + carId
+                                                                                         + "&customerId=" + customerId
+                                                                                         + "&rentDate=" + rentDate
+                                                                                         + "&returnDate=" + returnDate);
   }
 
 }

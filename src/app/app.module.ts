@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,6 +29,14 @@ import { ColorOperationsComponent } from './components/color-operations/color-op
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
 import { CarOperationsComponent } from './components/car-operations/car-operations.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from 'src/interceptors/auth.interceptor';
+import { RegisterComponent } from './components/register/register.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
+import { UserPassUpdateComponent } from './components/user-pass-update/user-pass-update.component';
+import { NewPaymentComponent } from './components/new-payment/new-payment.component';
+import { CreditCardListComponent } from './components/credit-card-list/credit-card-list.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -53,7 +61,13 @@ import { CarOperationsComponent } from './components/car-operations/car-operatio
     ColorOperationsComponent,
     ColorAddComponent,
     ColorUpdateComponent,
-    CarOperationsComponent
+    CarOperationsComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserUpdateComponent,
+    UserPassUpdateComponent,
+    NewPaymentComponent,
+    CreditCardListComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +80,10 @@ import { CarOperationsComponent } from './components/car-operations/car-operatio
       positionClass:"toast-bottom-right"
     })
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

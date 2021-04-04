@@ -35,7 +35,6 @@ export class CarComponent implements OnInit {
         this.getCars();
       }
     });
-    
   }
 
   getCars() {

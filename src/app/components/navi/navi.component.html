@@ -22,14 +22,56 @@
             <a class="nav-link" href="car/add">Add-Car</a>
           </li> -->
           <app-rent-summary></app-rent-summary>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
+          </li> -->
         </ul>
-        <form class="d-flex">
+        <span class="my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item" *ngIf="isLoggedIn() == false">  
+              <a class="nav-link" routerLink="register">Register</a>
+            </li>
+            <li class="nav-item" *ngIf="isLoggedIn() == false">  
+              <a class="nav-link" routerLink="login">Login</a>
+            </li>
+            
+            <li class="nav-item dropdown" *ngIf="isLoggedIn() && dataLoaded==true">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ userDetails.firstName + " " + userDetails.lastName }}
+                <span class="label label-warning"> FS: {{ customerUser.findeksScore }} </span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" routerLink="/updateuser">Update User Info</a></li>
+                <li><a class="dropdown-item" routerLink="/updatepassword">Change Password</a></li>
+                <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+              </ul>
+            </li>
+
+              <!-- <li class="nav-item">
+                <div class="dropdown" *ngIf="isLoggedIn() == true">  
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{ userDetails.firstName + " " + userDetails.lastName }}
+                          !-- <span class="label label-warning"> FS: {{ customerUser.findeksScore }} </span> --
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" ><i class="fa fa-edit"></i>&nbsp;Update Account Information</button>   !--routerLink="/updateinfos"--
+                    <button class="dropdown-item" ><i class="fa fa-lock"></i>&nbsp;&nbsp;Change Password</button>  !--routerLink="/updatepassword"--
+                    <button class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</button>
+                  </div>
+                </div>
+              </li> -->
+  
+
+            <!-- <li class="nav-item">
+              <app-cart-summary></app-cart-summary>
+            </li> -->
+          </ul>
+        </span>
+        <!-- <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>

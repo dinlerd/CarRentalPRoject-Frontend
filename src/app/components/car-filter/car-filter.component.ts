@@ -19,7 +19,11 @@ export class CarFilterComponent implements OnInit {
   colors: Color[] = [];
   brandFilter: Number;
   colorFilter: Number;
- 
+  selectedBrand : Number;
+  selectedColor : Number;
+  allBrand: Brand;
+  allColor: Color;
+
   ngOnInit(): void {
     this.getBrands();
     this.getColors();
@@ -49,5 +53,13 @@ export class CarFilterComponent implements OnInit {
     else
       return false;
   }
+
+  allBrandSelected(){
+    return this.selectedBrand == undefined ? true : false;
+  } 
+
+  allColorSelected(){
+    return this.selectedColor == undefined ? true : false;
+  } 
 
 }

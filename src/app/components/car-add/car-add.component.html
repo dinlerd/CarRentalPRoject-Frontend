@@ -14,7 +14,7 @@
                             placeholder="Car Description"/>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="brandId">Brand Id</label>
                         <div class="form-group">
                             <input type="number" 
@@ -23,8 +23,16 @@
                             class="form-control" 
                             placeholder="Brand Id"/>
                         </div>
-                    </div>
+                    </div> -->
+
                     <div class="mb-3">
+                        <label for="brandId">Select Brand Id:</label>
+                        <select class="form-control" formControlName="brandId">
+                          <option *ngFor="let brand of brands" [ngValue]="brand.carBrandId">{{brand.carBrandName}}</option>
+                        </select>
+                    </div>
+
+                    <!-- <div class="mb-3">
                         <label for="colorId">Color Id</label>
                         <div class="form-group">
                             <input type="number" 
@@ -33,7 +41,15 @@
                             class="form-control" 
                             placeholder="Color Id"/>
                         </div>
+                    </div> -->
+
+                    <div class="mb-3">
+                        <label for="colorId">Select Color Id:</label>
+                        <select class="form-control" formControlName="colorId">
+                          <option *ngFor="let color of colors" [ngValue]="color.carColorId">{{color.carColorName}}</option>
+                        </select>
                     </div>
+
                     <div class="mb-3">
                         <label for="dailyPrice">Daily Price</label>
                         <div class="form-group">

@@ -1,4 +1,3 @@
-  
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,29 +13,33 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-car-detail',
   templateUrl: './car-detail.component.html',
-  styleUrls: ['./car-detail.component.css']
+  styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
-
   car: Car;
   carDetail: CarDetail;
-  images:CarImage[];
+  images: CarImage[];
   dataLoaded = false;
   imageBasePath = environment.baseUrl;
 
-  constructor(private carDetailService:CarDetailService, private carImageService:CarImageService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService,private rentCartService:RentCartService) { }
+  constructor(
+    private carDetailService: CarDetailService,
+    private carImageService: CarImageService,
+    private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService,
+    private rentCartService: RentCartService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      if(params["carId"]){
-        this.getCarDetail(params["carId"]);
-        this.getImageDetail(params["carId"]);
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['carId']) {
+        this.getCarDetail(params['carId']);
+        this.getImageDetail(params['carId']);
       }
-     
     });
   }
 
-  getCarDetail(carId:number) {
+  getCarDetail(carId: number) {
     this.carDetailService.getCarDetail(carId).subscribe((response) => {
       this.carDetail = response.data;
       //console.log(this.carDetail.carImages);
@@ -44,7 +47,7 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  getImageDetail(carId:number) {
+  getImageDetail(carId: number) {
     this.carImageService.getCarImages(carId).subscribe((response) => {
       this.images = response.data;
       console.log(this.images);
@@ -52,16 +55,19 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  getSliderClassName(index:Number){
-    if(index == 0){
-      return "carousel-item active";
+  getSliderClassName(index: Number) {
+    if (index == 0) {
+      return 'carousel-item active';
     } else {
-      return "carousel-item";
+      return 'carousel-item';
     }
   }
 
-  addToRentCart(car:Car){
-    this.toastrService.success("Added ",car.carDescription + "added to RentCart")
+  addToRentCart(car: Car) {
+    this.toastrService.success(
+      'Added ',
+      car.carDescription + 'added to RentCart'
+    );
     this.rentCartService.addToRentCart(car);
     this.dataLoaded = true;
     console.log(car);

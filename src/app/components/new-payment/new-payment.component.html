@@ -1,0 +1,80 @@
+<div class="row">
+
+    <div class="col-md-12">
+  
+      <h3>{{title}}</h3>
+      <hr>
+  
+    </div>
+  
+    <div class="col-md-6">
+  
+      <form #paymentAddForm="ngForm" (ngSubmit)="addPayment(paymentAddForm)">
+  
+        <div class="form-group w-100">
+            <label>Name Surname:</label>
+            <input type="text" class="form-control"
+            #nameSurname="ngModel" [(ngModel)]="paymentModel.nameSurname" id="namesurname" name="namesurname" required>
+            <div *ngIf="nameSurname.invalid&&nameSurname.dirty" class="alert alert-danger">
+                Name surname is required.
+            </div>
+        </div>
+  
+        <div class="form-group w-100">
+            <label>Card No:</label>
+            <input type="text" class="form-control"
+            #cardNo="ngModel" [(ngModel)]="paymentModel.cardNo" id="cardno" name="cardno" required>
+            <div *ngIf="cardNo.invalid&&cardNo.dirty" class="alert alert-danger">
+                Card no is required.
+            </div>
+        </div>
+  
+        <div class="form-group w-100">
+          <label>Expiration Date:</label>
+          <input type="text" class="form-control"
+          #expirationDate="ngModel" [(ngModel)]="paymentModel.expirationDate" id="expirationdate" name="expirationdate" required>
+          <div *ngIf="expirationDate.invalid&&expirationDate.dirty" class="alert alert-danger">
+              Expiration date is required.
+          </div>
+        </div>
+  
+        <div class="form-group w-100">
+          <label>CVC:</label>
+          <input type="text" class="form-control"
+          #cvc="ngModel" [(ngModel)]="paymentModel.cvc" id="cvc" name="cvc" required>
+          <div *ngIf="cvc.invalid&&cvc.dirty" class="alert alert-danger">
+              CVC is required.
+          </div>
+        </div>
+  
+        <div class="form-group w-100">
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" [(ngModel)]="paymentModel.saveCard" id="saveCard" name="saveCard" value="saveCard" /> Save Card
+            </label>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-info">
+              <b>Total Price: {{ totalPrice | currency: "₺" }}</b>
+            </div>
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary w-100">
+            Confirm Payment
+        </button>
+  
+      </form>
+  
+    </div>
+  
+    <div class="col-md-6">
+  
+      <app-credit-card-list></app-credit-card-list>
+  
+    </div>
+  
+  </div>

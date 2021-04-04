@@ -38,11 +38,12 @@
       </button>
     </div>
     <div>
-      <ul class="list-group list-group-flush">
+      <ul class="list-group list-group-flush">  <!-- *ngIf="carDetail.car"  -->
         <li class="list-group-item">Brand: {{carDetail.car.brandName}}</li>
         <li class="list-group-item">Color: {{carDetail.car.colorName}}</li>
         <li class="list-group-item">Model Year: {{carDetail.car.modelYear}}</li>
         <li class="list-group-item">Price: {{carDetail.car.dailyPrice}} TL</li>
+        <li class="list-group-item">Findeks: {{carDetail.car.minFindeksScore}}</li>
       </ul>
     </div>
     <div class="mb-3">

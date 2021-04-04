@@ -36,18 +36,11 @@ export class CarUpdateComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       if(params["carId"]){
         console.log("ngOnInit carId: " + params["carId"]);
-        this.createCarUpdateForm();
         this.getCarById(params["carId"]);
         console.log("ngOnInit: " + this.carToUpdate);
-        this.getBrands();
-        this.getColors();
       }
-      // if (params['carId']) {
-      //   this.carId = parseInt(params['carId']);
-      //   console.log(this.carId);
-      // }
     });
-    //this.createCarUpdateForm();
+
   }
 
   createCarUpdateForm(){
@@ -65,6 +58,9 @@ export class CarUpdateComponent implements OnInit {
     this.carService.getCarById(carId).subscribe((response) => {
       this.carToUpdate = response.data;
       this.dataLoaded=true;
+      this.getBrands();
+      this.getColors();
+      this.createCarUpdateForm();
       // this.carUpdateForm.get('description')?.setValue(this.carToUpdate.description);
       // console.log(this.carToUpdate.description)
       // this.carUpdateForm.get('modelYear')?.setValue(this.carToUpdate.modelYear);

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { Rental } from 'src/app/models/rental';
 import { RentalToAdd } from 'src/app/models/rentalToAdd';
 import { CarService } from 'src/app/services/car.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
@@ -28,20 +30,24 @@ export class RentalComponent implements OnInit {
   rentalToAdd:RentalToAdd;
   customerId:number;
   rentable:Boolean = false;
-  dataLoaded=false;
-  carRented=false;
+  dataLoaded:Boolean=false;
+  carRented:Boolean=false;
+  rentalIdLoaded:Boolean=false;
+  rentalInfos:RentalToAdd | undefined;
 
   constructor(private rentalService:RentalService, 
     private activatedRoute:ActivatedRoute, 
     private carService:CarService,
     private customerService:CustomerService, 
     private toastrService:ToastrService,
-    private router:Router) { }
+    private router:Router,
+    private localStorageService:LocalStorageService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if(params["carId"]){
         this.getRentalDetailsByCarId(params["carId"]);
+        console.log("carRented: "+ this.carRented)
       }
     });
     //this.getRentals();
@@ -90,10 +96,27 @@ export class RentalComponent implements OnInit {
     })
   }
 
+  getRentalId() {
+    this.rentalService.getIdByRentalInfos(this.rentalToAdd.carId, this.rentalToAdd.customerId, this.rentalToAdd.rentDate, this.rentalToAdd.returnDate)
+    .subscribe(response => {
+      this.rentalInfos = response.data
+      this.rentalIdLoaded=true;
+      console.log("Getrental Id: " + this.rentalInfos.id);
+      console.log("GetrentalId rentalToAdd: " + this.rentalToAdd);
+    })
+  }
+
   addRental(rentalToAdd:RentalToAdd){
-      this.rentalService.addRental(rentalToAdd);
-      console.log(this.rentalToAdd);
-      this.carRented=true;
+      this.rentalService.addRental(rentalToAdd).subscribe(
+        response => {
+          this.toastrService.success("The car is rented " + response.message);
+          console.log(this.rentalToAdd);
+          this.carRented=true;
+          this.getRentalId();
+        },
+        responseError => {
+          this.toastrService.error(responseError.error.message);
+        });
   //    this.reloadComponent();
  
   }
@@ -127,9 +150,10 @@ export class RentalComponent implements OnInit {
     }
 
   calculatePrice(){
-    if (this.customerId === undefined) {
-      this.toastrService.warning('Please select customer!');
-    } else if (this.startDate === undefined) {
+    // if (this.customerId === undefined) {
+    //   this.toastrService.warning('Please select customer!');
+    // } else 
+    if (this.startDate === undefined) {
       this.toastrService.warning('Lütfen Kira Başlangıç Tarihini seçin.');
     } else if (this.endDate === undefined) {
       this.toastrService.warning('Lütfen Kira Bitiş Tarihini seçin.');
@@ -146,7 +170,8 @@ export class RentalComponent implements OnInit {
       if (result>0){
         this.rentalToAdd = {
           carId:this.car.carId,
-          customerId:parseInt(this.customerId.toString()),
+          //customerId:parseInt(this.customerId.toString()),
+          customerId: Number(this.localStorageService.get("customerId")),
           rentDate:this.startDate,
           returnDate:this.endDate
         };

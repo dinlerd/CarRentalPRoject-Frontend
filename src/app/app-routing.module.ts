@@ -12,8 +12,14 @@ import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorOperationsComponent } from './components/color-operations/color-operations.component';
 import { ColorUpdateComponent } from './components/color-update/color-update.component';
+import { LoginComponent } from './components/login/login.component';
+import { NewPaymentComponent } from './components/new-payment/new-payment.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { RegisterComponent } from './components/register/register.component';
 import { RentalComponent } from './components/rental/rental.component';
+import { UserPassUpdateComponent } from './components/user-pass-update/user-pass-update.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {path:"", pathMatch:"full", component:CarComponent},
@@ -24,7 +30,7 @@ const routes: Routes = [
   {path:"cars/filter/:carBrandId/:carColorId",component:CarComponent},
   {path: "car/rentals/:carId", component: RentalComponent },
   {path: "car/operations", component: CarOperationsComponent },
-  {path: "car/add", component: CarAddComponent },
+  {path: "car/add", component: CarAddComponent, canActivate:[LoginGuard] },
   {path: "car/update/:carId", component: CarUpdateComponent },
   {path: "brand/update/:carBrandId", component: BrandUpdateComponent },
   {path: "brand/operations", component: BrandOperationsComponent },
@@ -33,7 +39,13 @@ const routes: Routes = [
   {path: "color/add", component: ColorAddComponent },
   {path: "color/update/:carColorId", component: ColorUpdateComponent },
   {path: "car/addCarImage", component: CarImageAddComponent },
-  {path: "rental/payment/:carId", component: PaymentComponent }
+  {path: "rental/payment/:carId", component: PaymentComponent },
+  {path: "rental/newPayment/:carId/:rentPrice", component: NewPaymentComponent, canActivate: [LoginGuard]},
+  {path: "newpayment/:rentalId/:rentPrice/:customerId", component: NewPaymentComponent, canActivate: [LoginGuard]},
+  {path: "login", component: LoginComponent },
+  {path: "register", component:RegisterComponent},
+  {path: "updateuser", component:UserUpdateComponent, canActivate: [LoginGuard]},
+  {path: "updatepassword", component:UserPassUpdateComponent, canActivate: [LoginGuard]}
 ];
 
 @NgModule({
