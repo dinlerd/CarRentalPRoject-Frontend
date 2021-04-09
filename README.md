@@ -21,6 +21,11 @@
 ![Capture15](https://user-images.githubusercontent.com/74870868/113514687-b928b900-9578-11eb-8bdc-d13c873de808.PNG)
 ![Capture16](https://user-images.githubusercontent.com/74870868/113514688-b9c14f80-9578-11eb-9bfd-550fc6bdb5e6.PNG)
 ![Capture17](https://user-images.githubusercontent.com/74870868/113514689-b9c14f80-9578-11eb-9b15-d334dad3cd0a.PNG)
+![Capture19](https://user-images.githubusercontent.com/74870868/114248770-40bf5f00-99a1-11eb-8e03-2436bea30c43.PNG)
+![Capture20](https://user-images.githubusercontent.com/74870868/114248775-46b54000-99a1-11eb-868c-4fa750c95263.PNG)
+![Capture21](https://user-images.githubusercontent.com/74870868/114248787-4fa61180-99a1-11eb-8353-2347576e85e2.PNG)
+![Capture22](https://user-images.githubusercontent.com/74870868/114248795-546ac580-99a1-11eb-82db-d2b5f06b626c.PNG)
+![Capture23](https://user-images.githubusercontent.com/74870868/114248807-5b91d380-99a1-11eb-9f61-a2dcb884a370.PNG)
 
 
 # CarRental
